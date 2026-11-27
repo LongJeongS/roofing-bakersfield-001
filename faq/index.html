@@ -46,7 +46,7 @@
 }
 
 /* ── DESIGN VARIETY: section pattern backgrounds ───────────────────────────────
-   One of these classes is applied to <body> via look-plain order-process-first. Patterns
+   One of these classes is applied to <body> via look-plain order-process-first heading-face-small. Patterns
    are subtle by design and applied to alternating sections to avoid visual
    noise. Stage 1 design_context.pattern_style selects which one. */
 
@@ -4841,6 +4841,47 @@ body.look-plain .cg-more-list li { border-bottom: 1px solid var(--border); }
 body.look-plain .cg-more-list a { display: block; padding: 14px 0; font-size: 17px; font-weight: 600; color: var(--color-primary); }
 body.look-plain .cg-more-list a:hover { text-decoration: underline; }
 /* review-round-nov-2026:end */
+/* legibility-nov-2026:start */
+/* Legibility fixes 2026-11-27, from what tools/legibility_check.py measured on the first plain sites. One marked chunk
+   so older tests can compare "today minus these fixes" (tests/legibility_round.py); every rule is scoped to the plain look.
+   Numbers band: where the brand accent is under 3:1 on the brand colour the assembler adds stats-figure-plain and the
+   figures are white (Naples coral on green measured 2.3:1). A readable accent keeps its colour. */
+body.look-plain.stats-brand-band.stats-figure-plain #stats-bar .stat-value { color: #fff; }
+/* Call-to-action band: the paragraph sits inside .cta-band-inner, so the rule above for "#cta-band > .container > p"
+   never reached it and it stayed at the classic 75% white (4.1 to 4.4:1 over the tinted photo). This is the intended 92%. */
+body.look-plain #cta-band .cta-band-sub { color: rgba(255,255,255,0.92); }
+/* Blog post top section: the breadcrumb and the date line are full white, and a dark scrim sits behind the text block
+   (it fades in over the block's top padding), so a pale photo cannot wash them out: 30% black keeps white text at 4.5:1 or better even where the photo is pure
+   white over these brand colours. The photo keeps its 45%. */
+body.look-plain .post-hero-overlay { background-image: linear-gradient(180deg, rgba(0,0,0,0) 0, rgba(0,0,0,0.3) 40px, rgba(0,0,0,0.3) 100%); }
+body.look-plain .post-breadcrumb, body.look-plain .post-breadcrumb a, body.look-plain .post-meta { color: #fff; }
+/* Photo service cards (photo_overlay): the dark fade hangs from the card title, so however long the card's text is the
+   title and the text sit on it. It replaces the fade that was fixed at 20% to 72% of the card's height (a long text
+   pushed the title up into its light part: 2.7:1 on a pale photo). The icon tile stays above it. */
+body.look-plain #services.services-variant-photo-overlay .svc-photo::after { background: rgba(10,22,30,0.05); }
+body.look-plain #services.services-variant-photo-overlay .service-card h3::before { content: ""; position: absolute; z-index: -1; left: -22px; right: -22px; top: -110px; height: 1200px; pointer-events: none; background: linear-gradient(180deg, rgba(10,22,30,0) 0, rgba(10,22,30,0.5) 110px, rgba(10,22,30,0.88) 180px); }
+body.look-plain #services.services-variant-photo-overlay .service-icon { z-index: 2; }
+/* Heading faces that are hard to read small (config/font_traits.json: small-bodied like Cormorant Garamond, whose 17px
+   reads like 12.8px, or condensed like Bebas Neue): the assembler adds heading-face-small and the headings of 18px and
+   under, the contents and sidebar titles, the footer brand name and the logo kicker are set in the body font, bold.
+   Larger headings keep the heading face. */
+body.look-plain.heading-face-small #services:not(.services-variant-photo-overlay) .service-card h3, body.look-plain.heading-face-small .area-service-card h3, body.look-plain.heading-face-small .vp-text h3, body.look-plain.heading-face-small .vp-text h4, body.look-plain.heading-face-small .vp-card h3, body.look-plain.heading-face-small .process-step h3, body.look-plain.heading-face-small .application-item h3, body.look-plain.heading-face-small .related-card h3, body.look-plain.heading-face-small .cg-faq-item h3, body.look-plain.heading-face-small .blog-card-title, body.look-plain.heading-face-small .contact-info-header h2, body.look-plain.heading-face-small .sidebar-card h3, body.look-plain.heading-face-small .cg-toc-title, body.look-plain.heading-face-small #site-footer .footer-brand-link, body.look-plain.heading-face-small #site-nav .nav-logo .nav-logo-kicker { font-family: var(--font-body); font-weight: 700; }
+/* Footer disclaimer: 14px on both footers (it was 13.5px, and 13px on the light footer: one paragraph on every page,
+   which alone put 7 to 9% of a referral site's characters under 14px). */
+body.look-plain .footer-disclaimer, body.look-plain #site-footer.footer-variant-light-minimal .footer-disclaimer { font-size: 14px; }
+/* Blog pages toggle `is-open` (templates/blog-*.html); open the menu and the dropdown on it too. */
+body.look-plain .nav-mobile-menu.is-open { display: flex; }
+body.look-plain .nav-dropdown.is-open .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; }
+/* legibility-nov-2026:end */
+/* template-round-nov-2026:start */
+/* ── Template round 2026-11-27 (tests/test_plain_template_round.py; the start and end markers let older tests set this
+   chunk aside: tests/template_round.py) ── */
+/* The open phone menu sits inside the fixed top bar, so a menu taller than the screen was cut off with no way to reach
+   its last links and button (Naples, Bakersfield on a 390x667 phone). It now scrolls inside what is left of the screen
+   under the bar (and the strip, where a site shows one), on every top bar and on the blog pages, whose script opens it
+   with `is-open`. The dynamic viewport height keeps the last button above a phone browser's toolbar. */
+body.look-plain #site-nav .nav-mobile-menu.open, body.look-plain #site-nav .nav-mobile-menu.is-open { max-height: calc(100vh - var(--plain-bar-h) - var(--plain-strip-h)); max-height: calc(100dvh - var(--plain-bar-h) - var(--plain-strip-h)); overflow-y: auto; overscroll-behavior: contain; }
+/* template-round-nov-2026:end */
 /* === hero-photo-form === */
 /* Top section: photo_form (the full-width photo with the plain look's left-heavy darkening; headline, text and phone on the left, a white
    quote-form card on the right over the photo; on phones the text comes first, then the card).
@@ -4926,7 +4967,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   </style>
   
 </head>
-<body class="look-plain order-process-first">
+<body class="look-plain order-process-first heading-face-small">
   
 <a href="#page-content" class="skip-link">Skip to main content</a>
 <header id="site-nav" role="banner">
@@ -4980,9 +5021,9 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <!-- ── FAQ Hero ────────────────────────────────────────────────────────── -->
   <section class="faq-hero">
     <div class="container">
-      <span class="section-eyebrow">Straight Answers</span>
-      <h1>Bakersfield Roofing Questions, Answered Plainly</h1>
-      <p>Heat, tile, code and cost, answered for Kern County homes.</p>
+      <span class="section-eyebrow">Questions</span>
+      <h1>Bakersfield Roofing Questions</h1>
+      <p>Cost, tile, permits and code, answered for Kern County homes.</p>
     </div>
   </section>
 
@@ -5008,11 +5049,11 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <div class="faq-accordion">
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">How much does it cost to replace a roof in Bakersfield?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Local cost guides put a full replacement on most Bakersfield single-family homes somewhere between $10,000 and $25,000, and many Central Valley projects land around $15,000 to $20,000. Where your house falls depends on the material (architectural shingle, cool-roof shingle or tile), the square count, how many layers come off and what the decking looks like once it is bare. The roof walk is how we turn that market range into a number for your address.</div>
+                <div class="faq-answer">Local cost guides put a full replacement on most Bakersfield single-family homes typically between $10,000 and $25,000, and many Central Valley projects land around $15,000 to $20,000. Where your house falls depends on the material (architectural shingle, cool-roof shingle or tile), the square count, how many layers come off and what the decking looks like once it is bare. The roof walk is how we turn that market range into a written number for your address.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">How many quotes should I get for a new roof, and what should the written quote include?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Three is plenty if each one is written after someone has actually been on the roof. Look for the shingle or tile product named, the underlayment named, the flashing and vent work spelled out, the permit listed as part of the job, and a line on what happens if bad decking turns up. A quote that skips the permit or the underlayment is a quote that will grow.</div>
+                <div class="faq-answer">Three or four is plenty if each one is written after someone has actually been on the roof. Look for the shingle or tile product named, the underlayment named, the flashing and vent work spelled out, the permit listed as part of the job, and a line on what happens if bad decking turns up. If a quote leaves out the permit or the underlayment, ask for them to be added before you compare prices.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Does tile lift-and-relay cost less than a new tile roof?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5030,7 +5071,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <div class="faq-accordion">
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Is tile or shingle better for a Bakersfield home in the summer heat?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Tile handles the heat better over the long run, shingle handles the budget better up front. Concrete tile sits on battens with an air gap beneath it, which slows heat moving into the attic, and the tile itself commonly lasts 40 years and more here. An architectural shingle roof in Bakersfield commonly gives 15 to 25 years, and a cool-roof shingle closes some of the heat gap at a lower cost than tile. Your roof framing also votes: tile is heavy, and not every truss was built for it.</div>
+                <div class="faq-answer">Tile handles the heat better over the long run, shingle handles the budget better up front. Concrete tile sits on battens with an air gap beneath it, which slows heat moving into the attic, and the tile itself commonly lasts 40 years and more here. An architectural shingle roof in Bakersfield commonly gives 15 to 25 years, and a cool-roof shingle closes some of the heat gap at a lower cost than tile. Your roof framing matters too: tile is heavy, and not every truss was built for it.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">How long does a roof last in the Central Valley sun?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5038,7 +5079,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Do cool roofs actually work, or is the condensation and color talk a real problem?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">They work, and the two objections are worth taking seriously. A cool-roof surface reflects more sunlight and runs cooler than a dark roof, which lowers attic temperature; how much of that reaches your cooling bill depends on insulation, ventilation and where your ducts run. Condensation shows up when a roof runs cooler at night with poor attic ventilation and moist indoor air, and the fix for that is attic ventilation. On color, the Cool Roof Rating Council is clear that a cool roof does not need to be white; cool-color shingles in gray, brown and terracotta reflect in the near-infrared part of sunlight your eye cannot see.</div>
+                <div class="faq-answer">They work, and the two objections are worth taking seriously. A cool-roof surface reflects more sunlight and runs cooler than a dark roof, which lowers attic temperature; how much of that reaches your cooling bill depends on insulation, ventilation and where your ducts run. Condensation shows up when a roof runs cooler at night with poor attic ventilation and moist indoor air, and the fix for that is attic ventilation. On color, the Cool Roof Rating Council is clear that a cool roof does not need to be white; cool-color shingles in gray and brown reflect in the near-infrared part of sunlight your eye cannot see.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Can my old tile be lifted and reused, or does the whole roof need replacing?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5052,15 +5093,15 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <div class="faq-accordion">
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Do I need a permit to replace my roof in Kern County?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Yes. Inside Bakersfield city limits the permit goes through the City's Building Division on Chester Avenue and its online permit portal; outside the city it goes through Kern County Public Works, Building Inspection, which takes applications through the county's Accela portal. We file it as part of the job and the inspection is scheduled around the roof day. A roofer who tells you a re-roof needs no permit is telling you something about how the rest of the job will go.</div>
+                <div class="faq-answer">Yes. Inside Bakersfield city limits the permit goes through the City's Building Division on Chester Avenue and its online permit portal. Delano, Shafter, Wasco, Arvin and Tehachapi each have their own city building office, and homes outside any city limits go through Kern County Public Works, Building Inspection, which takes applications through the county's Accela portal. We file it as part of the job and the inspection is scheduled around the roof day. If a re-roof quote leaves the permit off, ask who is filing it.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Do I need a cool roof to meet California code when I replace my roof in Bakersfield?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Often, yes. Bakersfield sits in California Energy Commission climate zone 13, one of the Central Valley zones where Title 24 sets cool-roof requirements for many roof replacements, and the permit paperwork is where that is checked. The exact threshold depends on your roof's slope and the current edition of the energy code, so we confirm it for your address when we file. There are compliant shingles in dark colors, so meeting the rule rarely means a white roof.</div>
+                <div class="faq-answer">Often, yes. Bakersfield sits in one of the Central Valley climate zones where Title 24 sets cool-roof requirements for many roof replacements, and the permit paperwork is where that is checked. The exact threshold depends on your roof's slope and the current edition of the energy code, so we confirm it for your address when we file. There are compliant shingles in dark colors, so meeting the rule rarely means a white roof.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">What should I check about a Bakersfield roofer before signing?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Start with the license. California generally requires a contractor license from the Contractors State License Board for roofing work above a small-job threshold, and the board's website lets you look up any number a roofer gives you. Then ask whether the permit is in the quote, who pulls it, and whether the product named on the quote is listed with the Cool Roof Rating Council if a cool roof is being sold. Written scope, named materials, permit line: those three tell you most of what you need.</div>
+                <div class="faq-answer">Start with the license. California generally requires a contractor license from the Contractors State License Board for roofing work above a small-job threshold, and the board's website lets you look up any number a roofer gives you. Then ask whether the permit is in the quote, who pulls it, and whether the product named on the quote is listed with the Cool Roof Rating Council if a cool roof is being sold.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">How long does a roof replacement take in Bakersfield?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5074,7 +5115,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <div class="faq-accordion">
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Do you roof in Delano, Shafter and Wasco?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">Yes. The three Highway 99 farm towns north of Bakersfield are inside our 25-mile working radius and get the same roof walk, written scope and permit handling as a job in the Southwest. Permits there go through each city's own building office or Kern County, depending on the address, and we sort that out when we file.</div>
+                <div class="faq-answer">Yes. The three farm towns north of Bakersfield are in our service area and get the same roof walk, written scope and permit handling as a job in Southwest Bakersfield. Permits there go through each city's own building office or Kern County, depending on the address, and we sort that out when we file.</div>
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Does Bakersfield Roofing Pros work in Tehachapi?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5082,7 +5123,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
               </details>
               <details class="faq-item" open>
                 <summary class="faq-question" tabindex="-1">Which parts of Bakersfield and Kern County do you cover?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-                <div class="faq-answer">All of Bakersfield, from Oleander and Westchester through the Southwest, Rosedale, the Northwest and East Bakersfield, plus Arvin to the southeast and roughly 25 miles around the city. If you are on the edge of that radius, send the address with the form and we will say plainly whether we cover it.</div>
+                <div class="faq-answer">All of Bakersfield, from Oleander and Westchester through the Southwest, Rosedale, the Northwest and East Bakersfield, plus Delano, Shafter, Wasco, Arvin and Tehachapi. If you are outside those towns, send the address with the form and we will tell you whether we cover it.</div>
               </details>
             </div>
           </div>
@@ -5095,8 +5136,8 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <!-- ── CTA Band ───────────────────────────────────────────────────────── -->
   <section id="cta-band" aria-labelledby="cta-heading" style="--cta-photo:url('/images/cta_bg.webp')">
     <div class="container">
-      <h2 id="cta-heading">Ready to Find Out What the Heat Has Done Up There?</h2>
-      <p>Book a roof walk. We photograph the whole roof, including the attic side, and write up the scope, the material options and the price before anything goes on the calendar.</p>
+      <h2 id="cta-heading">Want to Know What Your Roof Needs?</h2>
+      <p>Call or send the form to book a roof walk. You get the photos and a written scope with the material options and a price before anything goes on the calendar.</p>
       <a href="/contact/" class="cta-band-btn">Book a Roof Walk</a>
     </div>
   </section>
@@ -5113,7 +5154,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "How much does it cost to replace a roof in Bakersfield?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Local cost guides put a full replacement on most Bakersfield single-family homes somewhere between $10,000 and $25,000, and many Central Valley projects land around $15,000 to $20,000. Where your house falls depends on the material (architectural shingle, cool-roof shingle or tile), the square count, how many layers come off and what the decking looks like once it is bare. The roof walk is how we turn that market range into a number for your address."
+        "text": "Local cost guides put a full replacement on most Bakersfield single-family homes typically between $10,000 and $25,000, and many Central Valley projects land around $15,000 to $20,000. Where your house falls depends on the material (architectural shingle, cool-roof shingle or tile), the square count, how many layers come off and what the decking looks like once it is bare. The roof walk is how we turn that market range into a written number for your address."
       }
     },
     {
@@ -5121,7 +5162,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "How many quotes should I get for a new roof, and what should the written quote include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Three is plenty if each one is written after someone has actually been on the roof. Look for the shingle or tile product named, the underlayment named, the flashing and vent work spelled out, the permit listed as part of the job, and a line on what happens if bad decking turns up. A quote that skips the permit or the underlayment is a quote that will grow."
+        "text": "Three or four is plenty if each one is written after someone has actually been on the roof. Look for the shingle or tile product named, the underlayment named, the flashing and vent work spelled out, the permit listed as part of the job, and a line on what happens if bad decking turns up. If a quote leaves out the permit or the underlayment, ask for them to be added before you compare prices."
       }
     },
     {
@@ -5145,7 +5186,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Is tile or shingle better for a Bakersfield home in the summer heat?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tile handles the heat better over the long run, shingle handles the budget better up front. Concrete tile sits on battens with an air gap beneath it, which slows heat moving into the attic, and the tile itself commonly lasts 40 years and more here. An architectural shingle roof in Bakersfield commonly gives 15 to 25 years, and a cool-roof shingle closes some of the heat gap at a lower cost than tile. Your roof framing also votes: tile is heavy, and not every truss was built for it."
+        "text": "Tile handles the heat better over the long run, shingle handles the budget better up front. Concrete tile sits on battens with an air gap beneath it, which slows heat moving into the attic, and the tile itself commonly lasts 40 years and more here. An architectural shingle roof in Bakersfield commonly gives 15 to 25 years, and a cool-roof shingle closes some of the heat gap at a lower cost than tile. Your roof framing matters too: tile is heavy, and not every truss was built for it."
       }
     },
     {
@@ -5161,7 +5202,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Do cool roofs actually work, or is the condensation and color talk a real problem?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "They work, and the two objections are worth taking seriously. A cool-roof surface reflects more sunlight and runs cooler than a dark roof, which lowers attic temperature; how much of that reaches your cooling bill depends on insulation, ventilation and where your ducts run. Condensation shows up when a roof runs cooler at night with poor attic ventilation and moist indoor air, and the fix for that is attic ventilation. On color, the Cool Roof Rating Council is clear that a cool roof does not need to be white; cool-color shingles in gray, brown and terracotta reflect in the near-infrared part of sunlight your eye cannot see."
+        "text": "They work, and the two objections are worth taking seriously. A cool-roof surface reflects more sunlight and runs cooler than a dark roof, which lowers attic temperature; how much of that reaches your cooling bill depends on insulation, ventilation and where your ducts run. Condensation shows up when a roof runs cooler at night with poor attic ventilation and moist indoor air, and the fix for that is attic ventilation. On color, the Cool Roof Rating Council is clear that a cool roof does not need to be white; cool-color shingles in gray and brown reflect in the near-infrared part of sunlight your eye cannot see."
       }
     },
     {
@@ -5177,7 +5218,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Do I need a permit to replace my roof in Kern County?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Inside Bakersfield city limits the permit goes through the City's Building Division on Chester Avenue and its online permit portal; outside the city it goes through Kern County Public Works, Building Inspection, which takes applications through the county's Accela portal. We file it as part of the job and the inspection is scheduled around the roof day. A roofer who tells you a re-roof needs no permit is telling you something about how the rest of the job will go."
+        "text": "Yes. Inside Bakersfield city limits the permit goes through the City's Building Division on Chester Avenue and its online permit portal. Delano, Shafter, Wasco, Arvin and Tehachapi each have their own city building office, and homes outside any city limits go through Kern County Public Works, Building Inspection, which takes applications through the county's Accela portal. We file it as part of the job and the inspection is scheduled around the roof day. If a re-roof quote leaves the permit off, ask who is filing it."
       }
     },
     {
@@ -5185,7 +5226,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Do I need a cool roof to meet California code when I replace my roof in Bakersfield?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Often, yes. Bakersfield sits in California Energy Commission climate zone 13, one of the Central Valley zones where Title 24 sets cool-roof requirements for many roof replacements, and the permit paperwork is where that is checked. The exact threshold depends on your roof's slope and the current edition of the energy code, so we confirm it for your address when we file. There are compliant shingles in dark colors, so meeting the rule rarely means a white roof."
+        "text": "Often, yes. Bakersfield sits in one of the Central Valley climate zones where Title 24 sets cool-roof requirements for many roof replacements, and the permit paperwork is where that is checked. The exact threshold depends on your roof's slope and the current edition of the energy code, so we confirm it for your address when we file. There are compliant shingles in dark colors, so meeting the rule rarely means a white roof."
       }
     },
     {
@@ -5193,7 +5234,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "What should I check about a Bakersfield roofer before signing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the license. California generally requires a contractor license from the Contractors State License Board for roofing work above a small-job threshold, and the board's website lets you look up any number a roofer gives you. Then ask whether the permit is in the quote, who pulls it, and whether the product named on the quote is listed with the Cool Roof Rating Council if a cool roof is being sold. Written scope, named materials, permit line: those three tell you most of what you need."
+        "text": "Start with the license. California generally requires a contractor license from the Contractors State License Board for roofing work above a small-job threshold, and the board's website lets you look up any number a roofer gives you. Then ask whether the permit is in the quote, who pulls it, and whether the product named on the quote is listed with the Cool Roof Rating Council if a cool roof is being sold."
       }
     },
     {
@@ -5209,7 +5250,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Do you roof in Delano, Shafter and Wasco?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The three Highway 99 farm towns north of Bakersfield are inside our 25-mile working radius and get the same roof walk, written scope and permit handling as a job in the Southwest. Permits there go through each city's own building office or Kern County, depending on the address, and we sort that out when we file."
+        "text": "Yes. The three farm towns north of Bakersfield are in our service area and get the same roof walk, written scope and permit handling as a job in Southwest Bakersfield. Permits there go through each city's own building office or Kern County, depending on the address, and we sort that out when we file."
       }
     },
     {
@@ -5225,7 +5266,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       "name": "Which parts of Bakersfield and Kern County do you cover?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All of Bakersfield, from Oleander and Westchester through the Southwest, Rosedale, the Northwest and East Bakersfield, plus Arvin to the southeast and roughly 25 miles around the city. If you are on the edge of that radius, send the address with the form and we will say plainly whether we cover it."
+        "text": "All of Bakersfield, from Oleander and Westchester through the Southwest, Rosedale, the Northwest and East Bakersfield, plus Delano, Shafter, Wasco, Arvin and Tehachapi. If you are outside those towns, send the address with the form and we will tell you whether we cover it."
       }
     }
   ]
@@ -5234,7 +5275,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
 
 <footer id="site-footer" role="contentinfo" class="footer-variant-light-minimal">
   <div class="footer-top"><div class="container"><div class="footer-grid">
-    <div class="footer-col"><h4><a href="/" class="footer-brand-link">Bakersfield Roofing Pros</a></h4><p>Residential roofing for Bakersfield and Kern County: cool-roof shingles, tile lift-and-relay, replacements, repairs and low-slope coatings for Delano, Shafter, Wasco, Arvin and Tehachapi homes.</p><address class="footer-nap" style="font-style:normal;"><span>Bakersfield, California</span><br><a href="tel:+16615550100" style="color:rgba(255,255,255,0.65);">+1 (661) 555-0100</a></address></div>
+    <div class="footer-col"><h4><a href="/" class="footer-brand-link">Bakersfield Roofing Pros</a></h4><p>Residential roofing for Bakersfield and Kern County: roof replacement, repairs, cool-roof shingles and coatings, tile lift-and-relay and flat roofs. Serving Delano, Shafter, Wasco, Arvin and Tehachapi.</p><address class="footer-nap" style="font-style:normal;"><span>Bakersfield, California</span><br><a href="tel:+16615550100" style="color:rgba(255,255,255,0.65);">+1 (661) 555-0100</a></address></div>
     <div class="footer-col"><h4>Services</h4><ul>
             <li><a href="/services/roof-replacement/">Roof Replacement</a></li>
             <li><a href="/services/roof-repair-and-storm-damage/">Roof Repair and Storm Damage</a></li>
@@ -5242,14 +5283,14 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <li><a href="/services/tile-roof-repair-and-lift-and-relay/">Tile Roof Repair and Lift-and-Relay</a></li>
             <li><a href="/services/flat-and-low-slope-roofs/">Flat and Low-Slope Roofs</a></li>
 </ul></div>
-    <div class="footer-col"><h4>Inquiry</h4><ul><li><a href="/contact/">Request Quote</a></li><li><a href="/about/">About Us</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/blog/">Blog</a></li><li><a href="/cost-guides/roof-replacement-cost-bakersfield/">Price Guide</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div>
+    <div class="footer-col"><h4>Inquiry</h4><ul><li><a href="/contact/">Book a Roof Walk</a></li><li><a href="/about/">About Us</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/blog/">Blog</a></li><li><a href="/cost-guides/roof-replacement-cost-bakersfield/">Price Guide</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div>
     <div class="footer-col"><h4>Serving Kern County</h4><ul><li><a href="/">Bakersfield</a></li><li><a href="/areas/delano/">Delano</a></li><li><a href="/areas/shafter/">Shafter</a></li><li><a href="/areas/wasco/">Wasco</a></li><li><a href="/areas/tehachapi/">Tehachapi</a></li><li><a href="/areas/arvin/">Arvin</a></li></ul></div>
   </div></div></div>
   <div class="container"><p class="footer-disclaimer">This site is a free service to assist homeowners in connecting with local service contractors. All contractors are independent and this site does not warrant or guarantee any work performed. It is the responsibility of the homeowner to verify that the hired contractor furnishes the necessary license and insurance required for the work being performed. All persons depicted in a photo or video are actors or models and not contractors listed on this site.</p></div>
   <div class="container"><div class="footer-bottom"><span>© 2026 Bakersfield Roofing Pros. All rights reserved.</span><span>Bakersfield, California, United States</span></div></div>
 </footer>
 
-<a id="mobile-cta" href="tel:+16615550100" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now — +1 (661) 555-0100</a>
+<a id="mobile-cta" href="tel:+16615550100" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now: +1 (661) 555-0100</a>
 
 <script>
   function toggleMenu(btn){var m=document.getElementById('mobile-nav');m.classList.toggle('open');btn.setAttribute('aria-expanded',String(m.classList.contains('open')));}

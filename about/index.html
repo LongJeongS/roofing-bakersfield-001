@@ -8,10 +8,10 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=35fb488f">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Bakersfield Roofing Pros</title>
-  <meta name="description" content="Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco up Highway 99…">
+  <meta name="description" content="Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco to the north…">
   <link rel="canonical" href="https://roofing-bakersfield-001.pages.dev/about/">
   <meta property="og:title" content="About Us | Bakersfield Roofing Pros">
-  <meta property="og:description" content="Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco up Highway 99…">
+  <meta property="og:description" content="Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco to the north…">
   <meta property="og:url" content="https://roofing-bakersfield-001.pages.dev/about/">
   <meta property="og:type" content="website">
   <style>
@@ -45,7 +45,7 @@
 }
 
 /* ── DESIGN VARIETY: section pattern backgrounds ───────────────────────────────
-   One of these classes is applied to <body> via look-plain order-process-first. Patterns
+   One of these classes is applied to <body> via look-plain order-process-first heading-face-small. Patterns
    are subtle by design and applied to alternating sections to avoid visual
    noise. Stage 1 design_context.pattern_style selects which one. */
 
@@ -4840,6 +4840,47 @@ body.look-plain .cg-more-list li { border-bottom: 1px solid var(--border); }
 body.look-plain .cg-more-list a { display: block; padding: 14px 0; font-size: 17px; font-weight: 600; color: var(--color-primary); }
 body.look-plain .cg-more-list a:hover { text-decoration: underline; }
 /* review-round-nov-2026:end */
+/* legibility-nov-2026:start */
+/* Legibility fixes 2026-11-27, from what tools/legibility_check.py measured on the first plain sites. One marked chunk
+   so older tests can compare "today minus these fixes" (tests/legibility_round.py); every rule is scoped to the plain look.
+   Numbers band: where the brand accent is under 3:1 on the brand colour the assembler adds stats-figure-plain and the
+   figures are white (Naples coral on green measured 2.3:1). A readable accent keeps its colour. */
+body.look-plain.stats-brand-band.stats-figure-plain #stats-bar .stat-value { color: #fff; }
+/* Call-to-action band: the paragraph sits inside .cta-band-inner, so the rule above for "#cta-band > .container > p"
+   never reached it and it stayed at the classic 75% white (4.1 to 4.4:1 over the tinted photo). This is the intended 92%. */
+body.look-plain #cta-band .cta-band-sub { color: rgba(255,255,255,0.92); }
+/* Blog post top section: the breadcrumb and the date line are full white, and a dark scrim sits behind the text block
+   (it fades in over the block's top padding), so a pale photo cannot wash them out: 30% black keeps white text at 4.5:1 or better even where the photo is pure
+   white over these brand colours. The photo keeps its 45%. */
+body.look-plain .post-hero-overlay { background-image: linear-gradient(180deg, rgba(0,0,0,0) 0, rgba(0,0,0,0.3) 40px, rgba(0,0,0,0.3) 100%); }
+body.look-plain .post-breadcrumb, body.look-plain .post-breadcrumb a, body.look-plain .post-meta { color: #fff; }
+/* Photo service cards (photo_overlay): the dark fade hangs from the card title, so however long the card's text is the
+   title and the text sit on it. It replaces the fade that was fixed at 20% to 72% of the card's height (a long text
+   pushed the title up into its light part: 2.7:1 on a pale photo). The icon tile stays above it. */
+body.look-plain #services.services-variant-photo-overlay .svc-photo::after { background: rgba(10,22,30,0.05); }
+body.look-plain #services.services-variant-photo-overlay .service-card h3::before { content: ""; position: absolute; z-index: -1; left: -22px; right: -22px; top: -110px; height: 1200px; pointer-events: none; background: linear-gradient(180deg, rgba(10,22,30,0) 0, rgba(10,22,30,0.5) 110px, rgba(10,22,30,0.88) 180px); }
+body.look-plain #services.services-variant-photo-overlay .service-icon { z-index: 2; }
+/* Heading faces that are hard to read small (config/font_traits.json: small-bodied like Cormorant Garamond, whose 17px
+   reads like 12.8px, or condensed like Bebas Neue): the assembler adds heading-face-small and the headings of 18px and
+   under, the contents and sidebar titles, the footer brand name and the logo kicker are set in the body font, bold.
+   Larger headings keep the heading face. */
+body.look-plain.heading-face-small #services:not(.services-variant-photo-overlay) .service-card h3, body.look-plain.heading-face-small .area-service-card h3, body.look-plain.heading-face-small .vp-text h3, body.look-plain.heading-face-small .vp-text h4, body.look-plain.heading-face-small .vp-card h3, body.look-plain.heading-face-small .process-step h3, body.look-plain.heading-face-small .application-item h3, body.look-plain.heading-face-small .related-card h3, body.look-plain.heading-face-small .cg-faq-item h3, body.look-plain.heading-face-small .blog-card-title, body.look-plain.heading-face-small .contact-info-header h2, body.look-plain.heading-face-small .sidebar-card h3, body.look-plain.heading-face-small .cg-toc-title, body.look-plain.heading-face-small #site-footer .footer-brand-link, body.look-plain.heading-face-small #site-nav .nav-logo .nav-logo-kicker { font-family: var(--font-body); font-weight: 700; }
+/* Footer disclaimer: 14px on both footers (it was 13.5px, and 13px on the light footer: one paragraph on every page,
+   which alone put 7 to 9% of a referral site's characters under 14px). */
+body.look-plain .footer-disclaimer, body.look-plain #site-footer.footer-variant-light-minimal .footer-disclaimer { font-size: 14px; }
+/* Blog pages toggle `is-open` (templates/blog-*.html); open the menu and the dropdown on it too. */
+body.look-plain .nav-mobile-menu.is-open { display: flex; }
+body.look-plain .nav-dropdown.is-open .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; }
+/* legibility-nov-2026:end */
+/* template-round-nov-2026:start */
+/* ── Template round 2026-11-27 (tests/test_plain_template_round.py; the start and end markers let older tests set this
+   chunk aside: tests/template_round.py) ── */
+/* The open phone menu sits inside the fixed top bar, so a menu taller than the screen was cut off with no way to reach
+   its last links and button (Naples, Bakersfield on a 390x667 phone). It now scrolls inside what is left of the screen
+   under the bar (and the strip, where a site shows one), on every top bar and on the blog pages, whose script opens it
+   with `is-open`. The dynamic viewport height keeps the last button above a phone browser's toolbar. */
+body.look-plain #site-nav .nav-mobile-menu.open, body.look-plain #site-nav .nav-mobile-menu.is-open { max-height: calc(100vh - var(--plain-bar-h) - var(--plain-strip-h)); max-height: calc(100dvh - var(--plain-bar-h) - var(--plain-strip-h)); overflow-y: auto; overscroll-behavior: contain; }
+/* template-round-nov-2026:end */
 /* === hero-photo-form === */
 /* Top section: photo_form (the full-width photo with the plain look's left-heavy darkening; headline, text and phone on the left, a white
    quote-form card on the right over the photo; on phones the text comes first, then the card).
@@ -4966,7 +5007,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   </style>
   
 </head>
-<body class="look-plain order-process-first">
+<body class="look-plain order-process-first heading-face-small">
   
 <a href="#page-content" class="skip-link">Skip to main content</a>
 
@@ -5034,7 +5075,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <span class="section-eyebrow">Our Story</span>
       <h1 id="about-heading">About Bakersfield Roofing Pros</h1>
-      <p>Give Bakersfield homeowners roofs that handle the heat, explained plainly and permitted properly.</p>
+      <p>We repair and replace roofs around Bakersfield, and we show homeowners the problem and the price before work starts.</p>
     </div>
   </section>
 
@@ -5045,7 +5086,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
         <div class="story-content reveal">
           <span class="section-eyebrow">Who We Are</span>
           <h2 class="section-title" id="story-heading">Our Story</h2>
-          <p class="story-intro">Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco up Highway 99, Arvin to the southeast, and Tehachapi up the grade. We replace and repair asphalt shingle roofs, install cool-roof shingles and coatings, relay concrete and clay tile on new underlayment, and coat or re-cover flat and low-slope roofs.</p>
+          <p class="story-intro">Bakersfield Roofing Pros is a residential roofing company for Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco to the north, Arvin to the southeast, and Tehachapi up the grade. We replace and repair asphalt shingle roofs, install cool-roof shingles and coatings, relay concrete and clay tile on new underlayment, and coat or re-cover flat and low-slope roofs.</p>
         </div>
         <div class="story-image reveal">
           <img src="/images/why_us.webp" alt="A roofer fastening light grey shingles on a roof" loading="lazy" width="600" height="450">
@@ -5059,12 +5100,12 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <div class="stats-band-grid reveal-group">
         <div class="stats-band-item">
-          <div class="stats-band-value">6 Communities</div>
-          <div class="stats-band-label">Served</div>
+          <div class="stats-band-value">6</div>
+          <div class="stats-band-label">Towns We Work In</div>
         </div>
         <div class="stats-band-item">
-          <div class="stats-band-value">25 miles</div>
-          <div class="stats-band-label">Service Radius</div>
+          <div class="stats-band-value">5</div>
+          <div class="stats-band-label">Kinds of Roofing Work</div>
         </div>
       </div>
     </div>
@@ -5074,7 +5115,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <section class="credentials-section section-pad" aria-labelledby="credentials-heading">
     <div class="container">
       <span class="section-eyebrow reveal">How We Work</span>
-      <h2 class="section-title reveal" id="credentials-heading">Why You Can Trust Us</h2>
+      <h2 class="section-title reveal" id="credentials-heading">What You Can Expect</h2>
       <div class="credentials-grid reveal-group">
         <div class="credential-item">
           <div class="credential-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -5086,11 +5127,11 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
         </div>
         <div class="credential-item">
           <div class="credential-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="credential-label">City of Bakersfield or Kern County permit filed as part of the job</div>
+          <div class="credential-label">City or county permit filed when the job needs one</div>
         </div>
         <div class="credential-item">
           <div class="credential-check"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <div class="credential-label">Title 24 cool-roof paperwork handled with the permit</div>
+          <div class="credential-label">Energy-code forms handled with the permit</div>
         </div>
       </div>
     </div>
@@ -5100,28 +5141,28 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <section class="why-us-section section-pad" aria-labelledby="why-heading">
     <div class="container">
       <span class="section-eyebrow reveal">Why Bakersfield Roofing Pros</span>
-      <h2 class="section-title reveal" id="why-heading">We Roof for the Heat First</h2>
+      <h2 class="section-title reveal" id="why-heading">You See the Roof Before You Decide</h2>
       <div class="value-props-grid reveal-group">
         <div class="vp-card">
           <div class="vp-icon" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
-          <h3>Cooler Attic, Smaller Bill</h3>
-          <p>Cool-roof shingles and coatings reflect more sun than a dark roof and run cooler through July. We explain what that means for your attic and your air conditioner, in plain numbers where the sources have them.</p>
+          <h3>Photos of Your Own Roof</h3>
+          <p>You get pictures of your own roof and attic with the scope and price, so you can see the cracked tile or the bald shingle for yourself.</p>
         </div>
         <div class="vp-card">
           <div class="vp-icon" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>Tile Done Properly</h3>
-          <p>On many Bakersfield tile roofs the tile is fine and the paper under it is gone. We lift the field tile, lay new underlayment and flashings, and set the sound tile back.</p>
+          <h3>Sound Tile Goes Back On</h3>
+          <p>On many Bakersfield tile roofs the tile is fine and the underlayment beneath it has worn out. We lift the tile, lay new underlayment and flashings, and set the sound tile back.</p>
         </div>
         <div class="vp-card">
           <div class="vp-icon" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <h3>Permit and Title 24 Handled</h3>
-          <p>Roof replacement is permitted work in the City of Bakersfield and in Kern County. We file it, and the cool-roof paperwork the energy code asks for goes in with it.</p>
+          <h3>Cool Roof Options Explained</h3>
+          <p>Cool-roof shingles and coatings reflect more sun than a dark roof and run cooler through July. If one suits your house, we show you the product's Cool Roof Rating Council listing and what Title 24 asks for.</p>
         </div>
       </div>
     </div>
@@ -5134,8 +5175,8 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <div class="cta-band-inner">
         <div>
-          <h2 class="cta-band-headline">Ready to Find Out What the Heat Has Done Up There?</h2>
-          <p class="cta-band-sub">Book a roof walk. We photograph the whole roof, including the attic side, and write up the scope, the material options and the price before anything goes on the calendar.</p>
+          <h2 class="cta-band-headline">Want to Know What Your Roof Needs?</h2>
+          <p class="cta-band-sub">Call or send the form to book a roof walk. You get the photos and a written scope with the material options and a price before anything goes on the calendar.</p>
         </div>
         <div class="cta-band-actions">
           <a href="/contact/" class="btn btn-primary">Book a Roof Walk</a>
@@ -5158,7 +5199,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       <div class="footer-grid">
         <div class="footer-col">
           <h4><a href="/" class="footer-brand-link">Bakersfield Roofing Pros</a></h4>
-          <p>Residential roofing for Bakersfield and Kern County: cool-roof shingles, tile lift-and-relay, replacements, repairs and low-slope coatings for Delano, Shafter, Wasco, Arvin and Tehachapi homes.</p>
+          <p>Residential roofing for Bakersfield and Kern County: roof replacement, repairs, cool-roof shingles and coatings, tile lift-and-relay and flat roofs. Serving Delano, Shafter, Wasco, Arvin and Tehachapi.</p>
           <address class="footer-nap" style="font-style:normal;">
             <span>Bakersfield, California</span><br>
             <a href="tel:+16615550100" style="color:rgba(255,255,255,0.65);">+1 (661) 555-0100</a><br>
@@ -5177,7 +5218,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
         <div class="footer-col">
           <h4>Inquiry</h4>
           <ul>
-            <li><a href="/contact/">Request Quote</a></li>
+            <li><a href="/contact/">Book a Roof Walk</a></li>
             <li><a href="/about/">About Us</a></li>
             <li><a href="/faq/">FAQ</a></li>
             <li><a href="/blog/">Blog</a></li><li><a href="/cost-guides/roof-replacement-cost-bakersfield/">Price Guide</a></li>
@@ -5211,7 +5252,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
 
 <a id="mobile-cta" href="tel:+16615550100" aria-label="Call us now">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-  Call Now — +1 (661) 555-0100
+  Call Now: +1 (661) 555-0100
 </a>
 
 <script>

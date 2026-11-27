@@ -51,7 +51,7 @@
   </script>
   <!-- FAQPage schema for service-specific Q&A -->
   <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does a tile lift-and-relay cost in Bakersfield?", "acceptedAnswer": {"@type": "Answer", "text": "It is quoted per job after the roof walk, and it typically costs less than full tile replacement because the tile is reused. You pay for labor to lift and restack every tile, new underlayment and flashings, new battens where the old ones rotted, and replacement tile for what cracks in handling. Pitch, the number of valleys and how much tile is already broken move the labor most."}}, {"@type": "Question", "name": "How do I know whether my tile roof needs a relay or just a repair?", "acceptedAnswer": {"@type": "Answer", "text": "Count the leaks and consider the age of the paper. One leak at a valley or chimney on a roof under 20 years old is a repair: lift the local tile, fix the flashing or underlayment, set it back. A roof past 20 to 25 Bakersfield summers with stains in two or three rooms has underlayment failing everywhere at once, and patching it chases leaks for years."}}, {"@type": "Question", "name": "How long does a tile relay take compared with a shingle roof?", "acceptedAnswer": {"@type": "Answer", "text": "Longer, usually by a few days. Every tile is handled twice and the crew works one slope at a time so only part of the roof is open at a time, which stretches a relay past the 2 to 6 days most shingle replacements take. We give you the planned slope sequence and never promise a finish date, since broken tile and rotten battens only show once the field is lifted."}}, {"@type": "Question", "name": "Can I switch from tile to shingles instead of relaying?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and it is a reasonable choice when the tile is a discontinued profile that cannot be matched. Tile to shingle is a full <a href=\"/services/roof-replacement/\">roof replacement</a> with a permit, and since tile is far heavier than shingle the framing is not the constraint. Shingle to tile is the direction that needs an engineer to confirm the structure can carry the load, as the tile industry's manual requires for reroofs."}}, {"@type": "Question", "name": "Does Title 24 apply when tile is relaid in Bakersfield?", "acceptedAnswer": {"@type": "Answer", "text": "The cool-roof question generally turns on the finished roof surface, and in a relay that surface is your existing tile going back on. California's Title 24 energy code sets cool-roof requirements for many roof replacements in the Central Valley, and the permit paperwork is where that is checked, so we confirm how the current edition treats a relay for your address when we file. Where new tile is bought anyway, listed cool-color tile exists."}}]}
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does a tile lift-and-relay cost in Bakersfield?", "acceptedAnswer": {"@type": "Answer", "text": "It is quoted per job after the roof walk, and it typically costs less than full tile replacement because the tile is reused. You pay for labor to lift and restack every tile, new underlayment and flashings, new battens where the old ones rotted, and replacement tile for what cracks in handling. Pitch, the number of valleys and how much tile is already broken move the labor most."}}, {"@type": "Question", "name": "How do I know whether my tile roof needs a relay or just a repair?", "acceptedAnswer": {"@type": "Answer", "text": "Count the leaks and consider the age of the paper. One leak at a valley or chimney on a roof under 20 years old is a repair: lift the local tile, fix the flashing or underlayment, set it back. A roof past 20 to 25 Bakersfield summers with stains in two or three rooms has underlayment failing everywhere at once, and patching it chases leaks for years."}}, {"@type": "Question", "name": "How long does a tile relay take compared with a shingle roof?", "acceptedAnswer": {"@type": "Answer", "text": "Longer, usually by a few days. Every tile is handled twice and the crew works one slope at a time so only part of the roof is open at a time, which stretches a relay past the 2 to 6 days most shingle replacements take. We give you the planned slope sequence and never promise a finish date, since broken tile and rotten battens only show once the field is lifted."}}, {"@type": "Question", "name": "Can I switch from tile to shingles instead of relaying?", "acceptedAnswer": {"@type": "Answer", "text": "You can, and it is a reasonable choice when the tile is a discontinued profile that cannot be matched. Tile to shingle is a full <a href=\"/services/roof-replacement/\">roof replacement</a> with a permit, and since tile is far heavier than shingle the framing is not the constraint. Shingle to tile is the direction that needs an engineer to confirm the structure can carry the load, as the tile industry's manual requires for reroofs."}}, {"@type": "Question", "name": "Does Title 24 apply when tile is relaid in Bakersfield?", "acceptedAnswer": {"@type": "Answer", "text": "The cool-roof question generally turns on the finished roof surface, and in a relay that surface is your existing tile going back on. Title 24 asks for a cool roof on many Central Valley re-roofs, so we confirm how the current edition treats a relay for your address when we file the permit. Where new tile is bought anyway, listed cool-color tile exists."}}]}
   </script>
   <style>
     /* ═══════════════════════════════════════════════════════════════
@@ -84,7 +84,7 @@
 }
 
 /* ── DESIGN VARIETY: section pattern backgrounds ───────────────────────────────
-   One of these classes is applied to <body> via look-plain order-process-first. Patterns
+   One of these classes is applied to <body> via look-plain order-process-first heading-face-small. Patterns
    are subtle by design and applied to alternating sections to avoid visual
    noise. Stage 1 design_context.pattern_style selects which one. */
 
@@ -4879,6 +4879,47 @@ body.look-plain .cg-more-list li { border-bottom: 1px solid var(--border); }
 body.look-plain .cg-more-list a { display: block; padding: 14px 0; font-size: 17px; font-weight: 600; color: var(--color-primary); }
 body.look-plain .cg-more-list a:hover { text-decoration: underline; }
 /* review-round-nov-2026:end */
+/* legibility-nov-2026:start */
+/* Legibility fixes 2026-11-27, from what tools/legibility_check.py measured on the first plain sites. One marked chunk
+   so older tests can compare "today minus these fixes" (tests/legibility_round.py); every rule is scoped to the plain look.
+   Numbers band: where the brand accent is under 3:1 on the brand colour the assembler adds stats-figure-plain and the
+   figures are white (Naples coral on green measured 2.3:1). A readable accent keeps its colour. */
+body.look-plain.stats-brand-band.stats-figure-plain #stats-bar .stat-value { color: #fff; }
+/* Call-to-action band: the paragraph sits inside .cta-band-inner, so the rule above for "#cta-band > .container > p"
+   never reached it and it stayed at the classic 75% white (4.1 to 4.4:1 over the tinted photo). This is the intended 92%. */
+body.look-plain #cta-band .cta-band-sub { color: rgba(255,255,255,0.92); }
+/* Blog post top section: the breadcrumb and the date line are full white, and a dark scrim sits behind the text block
+   (it fades in over the block's top padding), so a pale photo cannot wash them out: 30% black keeps white text at 4.5:1 or better even where the photo is pure
+   white over these brand colours. The photo keeps its 45%. */
+body.look-plain .post-hero-overlay { background-image: linear-gradient(180deg, rgba(0,0,0,0) 0, rgba(0,0,0,0.3) 40px, rgba(0,0,0,0.3) 100%); }
+body.look-plain .post-breadcrumb, body.look-plain .post-breadcrumb a, body.look-plain .post-meta { color: #fff; }
+/* Photo service cards (photo_overlay): the dark fade hangs from the card title, so however long the card's text is the
+   title and the text sit on it. It replaces the fade that was fixed at 20% to 72% of the card's height (a long text
+   pushed the title up into its light part: 2.7:1 on a pale photo). The icon tile stays above it. */
+body.look-plain #services.services-variant-photo-overlay .svc-photo::after { background: rgba(10,22,30,0.05); }
+body.look-plain #services.services-variant-photo-overlay .service-card h3::before { content: ""; position: absolute; z-index: -1; left: -22px; right: -22px; top: -110px; height: 1200px; pointer-events: none; background: linear-gradient(180deg, rgba(10,22,30,0) 0, rgba(10,22,30,0.5) 110px, rgba(10,22,30,0.88) 180px); }
+body.look-plain #services.services-variant-photo-overlay .service-icon { z-index: 2; }
+/* Heading faces that are hard to read small (config/font_traits.json: small-bodied like Cormorant Garamond, whose 17px
+   reads like 12.8px, or condensed like Bebas Neue): the assembler adds heading-face-small and the headings of 18px and
+   under, the contents and sidebar titles, the footer brand name and the logo kicker are set in the body font, bold.
+   Larger headings keep the heading face. */
+body.look-plain.heading-face-small #services:not(.services-variant-photo-overlay) .service-card h3, body.look-plain.heading-face-small .area-service-card h3, body.look-plain.heading-face-small .vp-text h3, body.look-plain.heading-face-small .vp-text h4, body.look-plain.heading-face-small .vp-card h3, body.look-plain.heading-face-small .process-step h3, body.look-plain.heading-face-small .application-item h3, body.look-plain.heading-face-small .related-card h3, body.look-plain.heading-face-small .cg-faq-item h3, body.look-plain.heading-face-small .blog-card-title, body.look-plain.heading-face-small .contact-info-header h2, body.look-plain.heading-face-small .sidebar-card h3, body.look-plain.heading-face-small .cg-toc-title, body.look-plain.heading-face-small #site-footer .footer-brand-link, body.look-plain.heading-face-small #site-nav .nav-logo .nav-logo-kicker { font-family: var(--font-body); font-weight: 700; }
+/* Footer disclaimer: 14px on both footers (it was 13.5px, and 13px on the light footer: one paragraph on every page,
+   which alone put 7 to 9% of a referral site's characters under 14px). */
+body.look-plain .footer-disclaimer, body.look-plain #site-footer.footer-variant-light-minimal .footer-disclaimer { font-size: 14px; }
+/* Blog pages toggle `is-open` (templates/blog-*.html); open the menu and the dropdown on it too. */
+body.look-plain .nav-mobile-menu.is-open { display: flex; }
+body.look-plain .nav-dropdown.is-open .nav-dropdown-menu { opacity: 1; pointer-events: auto; transform: translateY(0); visibility: visible; }
+/* legibility-nov-2026:end */
+/* template-round-nov-2026:start */
+/* ── Template round 2026-11-27 (tests/test_plain_template_round.py; the start and end markers let older tests set this
+   chunk aside: tests/template_round.py) ── */
+/* The open phone menu sits inside the fixed top bar, so a menu taller than the screen was cut off with no way to reach
+   its last links and button (Naples, Bakersfield on a 390x667 phone). It now scrolls inside what is left of the screen
+   under the bar (and the strip, where a site shows one), on every top bar and on the blog pages, whose script opens it
+   with `is-open`. The dynamic viewport height keeps the last button above a phone browser's toolbar. */
+body.look-plain #site-nav .nav-mobile-menu.open, body.look-plain #site-nav .nav-mobile-menu.is-open { max-height: calc(100vh - var(--plain-bar-h) - var(--plain-strip-h)); max-height: calc(100dvh - var(--plain-bar-h) - var(--plain-strip-h)); overflow-y: auto; overscroll-behavior: contain; }
+/* template-round-nov-2026:end */
 /* === hero-photo-form === */
 /* Top section: photo_form (the full-width photo with the plain look's left-heavy darkening; headline, text and phone on the left, a white
    quote-form card on the right over the photo; on phones the text comes first, then the card).
@@ -5046,7 +5087,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   </style>
   
 </head>
-<body class="look-plain order-process-first">
+<body class="look-plain order-process-first heading-face-small">
   
 <a href="#page-content" class="skip-link">Skip to main content</a>
 <header id="site-nav" role="banner">
@@ -5098,11 +5139,11 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
 <main id="page-content" tabindex="-1" style="margin-top:80px;" aria-label="Service page">
 
   <!-- ── Service Hero ───────────────────────────────────────────────────── -->
-  <section class="svc-hero" style="background-image:url('/images/service_4_hero.webp');" aria-label="Tile lift-and-relay over new underlayment">
+  <section class="svc-hero" style="background-image:url('/images/service_4_hero.webp');" aria-label="Roof with concrete tiles stacked on one side and new wood battens on the bare boards on the other">
     <div class="container">
       <span class="svc-hero-eyebrow">What We Roof</span>
       <h1>Tile Roof Repair and Lift-and-Relay in Bakersfield</h1>
-      <p>The tile is usually fine. The paper under it is not. We fix the paper.</p>
+      <p>We lift sound tile, replace the underlayment and set the tile back.</p>
       <div class="svc-hero-actions">
         <a href="/contact/" class="btn btn-primary">Book a Roof Walk</a>
         <a href="tel:+16615550100" class="btn-outline-white">
@@ -5121,20 +5162,20 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       <h2 id="local-intro-heading">Tile Roofs in Bakersfield: Good Tile on Dead Paper</h2>
       <p class="svc-local-intro-body">Bakersfield subdivisions from the eighties and nineties have plenty of concrete tile roofs that look fine from the street and leak in two rooms. The tile is fine. The felt beneath it, baked through thirty summers, has torn through.</p>
 <p class="svc-local-intro-body">A lift-and-relay fixes that: lift the tile, strip the paper, lay new underlayment and flashings, set the sound tile back. The tile industry's manual requires at least No. 30 felt or an approved equal across the deck.</p>
-<p class="svc-local-intro-body">Tile is Class A against fire and shrugs off sun. Relaying it keeps <a href="/areas/bakersfield/">Bakersfield</a> tile neighborhoods looking the way they were built.</p>
+<p class="svc-local-intro-body">Tile is Class A against fire and shrugs off sun. Relaying it keeps <a href="/">Bakersfield</a> tile neighborhoods looking the way they were built.</p>
     </div>
   </section>
 
   <!-- ── Benefits ──────────────────────────────────────────────────────── -->
   <section class="svc-benefits" aria-labelledby="benefits-heading">
     <div class="container">
-      <span class="section-eyebrow">Why Choose Us</span>
-      <h2 id="benefits-heading" class="section-title">Why Bakersfield Homeowners Choose Us for Tile Roof Repair and Lift-and-Relay</h2>
+      <span class="section-eyebrow">How We Work</span>
+      <h2 id="benefits-heading" class="section-title">What to Expect with Tile Roof Repair and Lift-and-Relay</h2>
       <div class="benefits-grid">
         <div class="benefit-card">
           <div class="benefit-icon" data-ms="verified" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="benefit-title">Your Tile Goes Back On</div>
-          <div class="benefit-body">Sound concrete or clay tile is reused, so the roof keeps its look and the landfill keeps its space.</div>
+          <div class="benefit-body">Sound concrete or clay tile is reused, so the roof keeps its look.</div>
         </div>
         <div class="benefit-card">
           <div class="benefit-icon" data-ms="verified" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
@@ -5160,13 +5201,13 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <span class="section-eyebrow">Materials &amp; Specs</span>
       <h2 id="specs-heading" class="section-title">What We Use for Tile Roof Repair and Lift-and-Relay</h2>
-      <p class="section-subtitle">Industry-standard materials and specifications you can rely on.</p>
+      <p class="section-subtitle">Materials and steps on a typical job.</p>
       <div class="specs-grid">
         <div class="spec-item">
           <div class="spec-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="spec-text">
             <div class="spec-label">Underlayment</div>
-            <div class="spec-value">Two layers of No. 30 felt or a heavy synthetic built for tile, exceeding the industry minimum of one layer ASTM D226 Type II</div>
+            <div class="spec-value">Two layers of No. 30 felt or a heavy synthetic built for tile</div>
           </div>
         </div>
         <div class="spec-item">
@@ -5194,7 +5235,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
           <div class="spec-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg></div>
           <div class="spec-text">
             <div class="spec-label">Written Scope</div>
-            <div class="spec-value">Materials, method and price written on the scope before work starts</div>
+            <div class="spec-value">Underlayment, flashing metal, batten plan, tile breakage allowance and matching tile source, with a price</div>
           </div>
         </div>
       </div>
@@ -5206,7 +5247,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <span class="section-eyebrow">How a Job Runs</span>
       <h2 id="process-heading" class="section-title">From Roof Walk to Final Walk in 4 Steps</h2>
-      <p class="section-subtitle">The same order on every Bakersfield job, whether it is a pipe boot or a full tile relay.</p>
+      <p class="section-subtitle">Every job runs in the same order, whether it is a small repair or a full re-roof.</p>
       <div class="process-steps">
         <div class="process-step">
           <div class="process-step-num" aria-hidden="true">1</div>
@@ -5230,7 +5271,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
         </div>
       </div>
       <div class="process-result-img">
-        <img src="/images/service_4_step_4.webp" alt="Completed tile lift-and-relay with reset ridge tile" loading="lazy" width="1200" height="525">
+        <img src="/images/service_4_step_4.webp" alt="Finished terracotta tile roof with a straight ridge and two tile-coloured roof vents" loading="lazy" width="1200" height="525">
       </div>
     </div>
   </section>
@@ -5270,7 +5311,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <section class="svc-faqs" aria-labelledby="svc-faq-heading">
     <div class="container">
       <span class="section-eyebrow">Common Questions</span>
-      <h2 id="svc-faq-heading" class="section-title">Tile Roof Repair and Lift-and-Relay — Frequently Asked Questions</h2>
+      <h2 id="svc-faq-heading" class="section-title">Questions About Tile Roof Repair and Lift-and-Relay</h2>
       <div class="svc-faq-list">
         <details class="svc-faq-item">
           <summary class="svc-faq-question">What does a tile lift-and-relay cost in Bakersfield?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
@@ -5291,7 +5332,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
         </details>
         <details class="svc-faq-item">
           <summary class="svc-faq-question">Does Title 24 apply when tile is relaid in Bakersfield?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></summary>
-          <div class="svc-faq-answer">The cool-roof question generally turns on the finished roof surface, and in a relay that surface is your existing tile going back on. California's Title 24 energy code sets cool-roof requirements for many roof replacements in the Central Valley, and the permit paperwork is where that is checked, so we confirm how the current edition treats a relay for your address when we file. Where new tile is bought anyway, listed cool-color tile exists.</div>
+          <div class="svc-faq-answer">The cool-roof question generally turns on the finished roof surface, and in a relay that surface is your existing tile going back on. Title 24 asks for a cool roof on many Central Valley re-roofs, so we confirm how the current edition treats a relay for your address when we file the permit. Where new tile is bought anyway, listed cool-color tile exists.</div>
         </details>
       </div>
       <div style="margin-top:28px; text-align:center;">
@@ -5308,22 +5349,22 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
       <div class="related-grid" data-count="4">
         <a href="/services/roof-replacement/" class="related-card">
           <h3>Roof Replacement</h3>
-          <p>Full tear-off and re-roof for Bakersfield homes whose shingles have given up to the sun: new decking repairs, underlayment, flashings, ventilation and a shingle chosen for the heat.</p>
+          <p>Full tear-off and re-roof for shingle roofs that have reached the end of their life: decking repairs, new underlayment, flashings and ventilation, then the shingle you chose from the options on the scope.</p>
           <span class="related-card-link">Learn more →</span>
         </a>
         <a href="/services/roof-repair-and-storm-damage/" class="related-card">
           <h3>Roof Repair and Storm Damage</h3>
-          <p>Leak tracing, flashing and pipe-boot replacement, cracked tile swaps and wind repairs after a Grapevine blow, with photos of the problem and the fix.</p>
+          <p>Leak tracing, flashing and pipe-boot replacement, cracked tile swaps and wind repairs after a storm, with photos of the problem and the fix.</p>
           <span class="related-card-link">Learn more →</span>
         </a>
         <a href="/services/cool-roof-shingles-and-coatings/" class="related-card">
           <h3>Cool Roof Shingles and Coatings</h3>
-          <p>Reflective shingles for steep roofs and elastomeric coatings for low ones, chosen for attic temperature and California's Title 24, explained without the sales pitch.</p>
+          <p>Reflective shingles for steep roofs and elastomeric coatings for low ones, chosen for attic temperature and California's Title 24.</p>
           <span class="related-card-link">Learn more →</span>
         </a>
         <a href="/services/flat-and-low-slope-roofs/" class="related-card">
           <h3>Flat and Low-Slope Roofs</h3>
-          <p>Coatings, re-covers and replacements for flat garages, patio covers, additions and low-slope homes, with the reflectance values Title 24 asks of low-slope roofs in climate zone 13.</p>
+          <p>Coatings, re-covers and replacements for flat garages, patio covers, additions and low-slope homes, with the reflectance values Title 24 asks of low-slope roofs where it applies.</p>
           <span class="related-card-link">Learn more →</span>
         </a>
       </div>
@@ -5335,8 +5376,8 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
     <div class="container">
       <div class="areas-header">
         <span class="section-eyebrow">Where We Roof</span>
-        <h2 class="section-title" id="areas-heading">Serving Bakersfield & Kern County</h2>
-        <p class="section-subtitle" style="margin:0 auto 32px;">Roughly 25 miles around Bakersfield: Delano, Shafter and Wasco to the north, Arvin to the southeast and Tehachapi up the grade.</p>
+        <h2 class="section-title" id="areas-heading">Serving Bakersfield and Kern County</h2>
+        <p class="section-subtitle" style="margin:0 auto 32px;">Bakersfield and the Kern County towns around it: Delano, Shafter and Wasco to the north, Arvin to the southeast and Tehachapi up the grade.</p>
       </div>
       <div class="areas-grid">
         <a href="/" class="area-card" data-area="Bakersfield"><span class="area-card-name">Bakersfield</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -5354,8 +5395,8 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
   <section class="quote-form-section" aria-labelledby="quote-form-heading">
     <div class="container">
       <div class="quote-form-card form-variant-inline-panel">
-        <h2 id="quote-form-heading">Get a Tile Roof Repair and Lift-and-Relay Quote</h2>
-        <p class="quote-form-sub">Tell us about your project and you&rsquo;ll hear back within one business day.</p>
+        <h2 id="quote-form-heading">Book a Roof Walk</h2>
+        <p class="quote-form-sub">Tell us the roof type, its age and what you are seeing.</p>
         <form class="quote-form" action="https://leads-proxy.jeongpark95.workers.dev" method="POST" name="quote-lead" data-leads-form>
           <input type="hidden" name="run_id" value="roofing-bakersfield-001">
           <div class="hp-field" aria-hidden="true"><input type="text" name="company_website" tabindex="-1" autocomplete="off"></div>
@@ -5367,17 +5408,17 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
           </div>
           <div class="quote-form-row">
             <input type="email" name="email" placeholder="Email (optional)" autocomplete="email" aria-label="Email address">
-            <input type="text" name="message" placeholder="What do you need done?" aria-label="Project details">
+            <input type="text" name="message" placeholder="Shingle or tile, its age, and what you are seeing." aria-label="Project details">
           </div>
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAGEhzYf9wGkV4IbN" data-size="flexible" data-theme="light"></div>
           <input type="hidden" name="cf-sitekey" value="0x4AAAAAAGEhzYf9wGkV4IbN">
-          <button type="submit" class="quote-form-submit">Request a Quote</button>
+          <button type="submit" class="quote-form-submit">Book a Roof Walk</button>
           <p class="form-consent">By sending this, you agree we can share your details with a local contractor who'll get in touch. <a href="/privacy/">Privacy Policy</a></p>
         </form>
         <div class="form-thank-you" aria-live="polite">
           <div class="form-thank-you-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
           <h3>We&rsquo;ve got your request!</h3>
-          <p>You&rsquo;ll hear back within one business day. Need to talk sooner? Call <a href="tel:+16615550100">+1 (661) 555-0100</a>.</p>
+          <p>Thanks for sending this. We'll reply about your roof. Need to talk sooner? Call <a href="tel:+16615550100">+1 (661) 555-0100</a>.</p>
         </div>
       </div>
     </div>
@@ -5385,8 +5426,8 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
 
   <section id="cta-band" aria-labelledby="cta-heading" style="--cta-photo:url('/images/cta_bg.webp')">
     <div class="container">
-      <h2 id="cta-heading">Ready to Find Out What the Heat Has Done Up There?</h2>
-      <p>Book a roof walk. We photograph the whole roof, including the attic side, and write up the scope, the material options and the price before anything goes on the calendar.</p>
+      <h2 id="cta-heading">Want to Know What Your Roof Needs?</h2>
+      <p>Call or send the form to book a roof walk. You get the photos and a written scope with the material options and a price before anything goes on the calendar.</p>
       <a href="/contact/" class="cta-band-btn">Book a Roof Walk</a>
     </div>
   </section>
@@ -5395,7 +5436,7 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
 
 <footer id="site-footer" role="contentinfo" class="footer-variant-light-minimal">
   <div class="footer-top"><div class="container"><div class="footer-grid">
-    <div class="footer-col"><h4><a href="/" class="footer-brand-link">Bakersfield Roofing Pros</a></h4><p>Residential roofing for Bakersfield and Kern County: cool-roof shingles, tile lift-and-relay, replacements, repairs and low-slope coatings for Delano, Shafter, Wasco, Arvin and Tehachapi homes.</p><address class="footer-nap" style="font-style:normal;"><span>Bakersfield, California</span><br><a href="tel:+16615550100" style="color:rgba(255,255,255,0.65);">+1 (661) 555-0100</a></address></div>
+    <div class="footer-col"><h4><a href="/" class="footer-brand-link">Bakersfield Roofing Pros</a></h4><p>Residential roofing for Bakersfield and Kern County: roof replacement, repairs, cool-roof shingles and coatings, tile lift-and-relay and flat roofs. Serving Delano, Shafter, Wasco, Arvin and Tehachapi.</p><address class="footer-nap" style="font-style:normal;"><span>Bakersfield, California</span><br><a href="tel:+16615550100" style="color:rgba(255,255,255,0.65);">+1 (661) 555-0100</a></address></div>
     <div class="footer-col"><h4>Services</h4><ul>
             <li><a href="/services/roof-replacement/">Roof Replacement</a></li>
             <li><a href="/services/roof-repair-and-storm-damage/">Roof Repair and Storm Damage</a></li>
@@ -5403,14 +5444,14 @@ body.look-plain #hero.hero-variant-photo-form .hero-bg::after { background: line
             <li><a href="/services/tile-roof-repair-and-lift-and-relay/">Tile Roof Repair and Lift-and-Relay</a></li>
             <li><a href="/services/flat-and-low-slope-roofs/">Flat and Low-Slope Roofs</a></li>
 </ul></div>
-    <div class="footer-col"><h4>Inquiry</h4><ul><li><a href="/contact/">Request Quote</a></li><li><a href="/about/">About Us</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/blog/">Blog</a></li><li><a href="/cost-guides/roof-replacement-cost-bakersfield/">Price Guide</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div>
+    <div class="footer-col"><h4>Inquiry</h4><ul><li><a href="/contact/">Book a Roof Walk</a></li><li><a href="/about/">About Us</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/blog/">Blog</a></li><li><a href="/cost-guides/roof-replacement-cost-bakersfield/">Price Guide</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms of Service</a></li></ul></div>
     <div class="footer-col"><h4>Serving Kern County</h4><ul><li><a href="/">Bakersfield</a></li><li><a href="/areas/delano/">Delano</a></li><li><a href="/areas/shafter/">Shafter</a></li><li><a href="/areas/wasco/">Wasco</a></li><li><a href="/areas/tehachapi/">Tehachapi</a></li><li><a href="/areas/arvin/">Arvin</a></li></ul></div>
   </div></div></div>
   <div class="container"><p class="footer-disclaimer">This site is a free service to assist homeowners in connecting with local service contractors. All contractors are independent and this site does not warrant or guarantee any work performed. It is the responsibility of the homeowner to verify that the hired contractor furnishes the necessary license and insurance required for the work being performed. All persons depicted in a photo or video are actors or models and not contractors listed on this site.</p></div>
   <div class="container"><div class="footer-bottom"><span>© 2026 Bakersfield Roofing Pros. All rights reserved.</span><span>Bakersfield, California, United States</span></div></div>
 </footer>
 
-<a id="mobile-cta" href="tel:+16615550100" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now — +1 (661) 555-0100</a>
+<a id="mobile-cta" href="tel:+16615550100" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now: +1 (661) 555-0100</a>
 
 <script>
   function toggleMenu(btn){var m=document.getElementById('mobile-nav');m.classList.toggle('open');btn.setAttribute('aria-expanded',String(m.classList.contains('open')));}
